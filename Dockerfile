@@ -1,3 +1,3 @@
-FROM espressif/idf:release-v5.0 as dev
+FROM espressif/idf:release-v5.5 as dev
 RUN mkdir /ble_ctf
 CMD ["bash"]
