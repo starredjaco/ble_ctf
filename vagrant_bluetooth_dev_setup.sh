@@ -5,7 +5,6 @@ DEBIAN_FRONTEND=noninteractive apt-get install -y git python-setuptools libbluet
 mkdir $SRC_DIR
 
 cd $SRC_DIR
-git clone https://github.com/hackgnar/bleah.git
 git clone https://github.com/IanHarvey/bluepy.git
 git clone https://github.com/greatscottgadgets/libbtbb.git
 git clone https://github.com/greatscottgadgets/ubertooth.git
@@ -13,10 +12,6 @@ git clone https://github.com/adafruit/Adafruit_BLESniffer_Python.git
 git clone https://github.com/ambrice/nordic_ble
 
 cd $SRC_DIR/bluepy
-python setup.py build
-python setup.py install
-
-cd $SRC_DIR/bleah
 python setup.py build
 python setup.py install
 

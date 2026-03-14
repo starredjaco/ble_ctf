@@ -5,10 +5,10 @@ The purpose of BLE CTF is to teach the core concepts of Bluetooth Low Energy cli
 
 ## Setting Up the CTF
 In order to set up the CTF you will need the following:
-1. The pre-compiled firmware or source code in this repository to build and flash an ESP32 with the CTF GATT server.  
-2. An esp32 microcontroller ([I sell overpriced pre-flashed ones here](https://www.ebay.com/itm/173370426012?ssPageName=STRK:MESELX:IT&_trksid=p3984.m1558.l2649))
+1. The pre-compiled firmware or source code in this repository to build and flash an ESP32 (esp32, esp32s3, or esp32c6) with the CTF GATT server.
+2. An esp32 microcontroller 
 3. A Linux box (OSX/Win + Linux VM works) with a bluetooth controller or a bluetooth usb dongle
-4. Bluetooth tools such as Bluez tools (hcitool, gatttool, etc) or [bleah](https://github.com/evilsocket/bleah)
+4. Bluetooth tools such as [gratttool](https://github.com/hackgnar/gratttool) (a modern Rust replacement for the deprecated gatttool) or Bluez tools (hcitool, etc)
 
 For instructions to compile/flash your own firmware or flash the provided pre-compiled firmware [read this documentation](docs/setup.md)
 
@@ -18,27 +18,27 @@ For instructions to compile/flash your own firmware or flash the provided pre-co
 
 Before you can submit flags, you have to discover the Bluetooth MAC address of your device.  Here are a couple example commands to help you find your device:
 
-Discover MAC using hcitool:   
-```` sudo hcitool lescan ````
+Discover MAC using gratttool:
+```` gratttool --scan ````
 
-Discover MAC using bleah:   
-```` sudo bleah ````
+Discover MAC using hcitool:
+```` sudo hcitool lescan ````
 
 Now that you have found your device’s MAC address, you can now communicate with it.  Before we get started with flags, let’s check out how we can see our current score.  In order to see where you are in the CTF, you can read from handle 42 on the device to see how many flags you have.  The following are example commands of how to view your current score.  Make sure you replace the MAC address in the example commands with the MAC address of your device. 
 
-Show score with gatttool:  
-```` gatttool -b de:ad:be:ef:be:f1 --char-read -a 0x002a|awk -F':' '{print $2}'|tr -d ' '|xxd -r -p;printf '\n'  ````
+Show score with gratttool:
+```` gratttool -b de:ad:be:ef:be:f1 --char-read -a 0x002a -A ````
 
-Show score with bleah:  
-```` sudo bleah -b "30:ae:a4:20:79:da" -e ````
+Show score with gratttool (hex output, gatttool compatible):
+```` gratttool -b de:ad:be:ef:be:f1 --char-read -a 0x002a|awk -F':' '{print $2}'|tr -d ' '|xxd -r -p;printf '\n'  ````
 
 Ok, ok, ok, on to the flags! All flags are md5 sums truncated to 20 characters to avoid MTU limits by some hardware.  They can be submitted to the gatt server on handle 44.  The following are examples of how to submit a flag.  Make sure you replace the MAC address in the example commands with the MAC address of your device:   
 
-Submit using gatttool:  
-```` gatttool -b de:ad:be:ef:be:f1 --char-write-req -a 0x002c -n $(echo -n "some flag value"|xxd -ps) ````
+Submit using gratttool:
+```` gratttool -b de:ad:be:ef:be:f1 --char-write-req -a 0x002c -S "some flag value" ````
 
-Submit using bleah:  
-```` sudo bleah -b "30:ae:a4:20:79:da" -n 0x002c -d "some flag value" ````
+Submit using gratttool (hex, gatttool compatible):
+```` gratttool -b de:ad:be:ef:be:f1 --char-write-req -a 0x002c -n $(echo -n "some flag value"|xxd -ps) ````
 
 ### Flag Hints
 | Flag | Description | Hint |

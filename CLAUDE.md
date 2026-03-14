@@ -18,10 +18,9 @@ idf.py set-target esp32
 idf.py build
 ```
 
-### Native Build (requires ESP-IDF v5.0+)
+### Native Build (requires ESP-IDF v5.5+)
 ```bash
-cp sdkconfig.example sdkconfig
-idf.py set-target esp32
+idf.py set-target esp32  # or esp32s3, esp32c6
 idf.py build
 ```
 

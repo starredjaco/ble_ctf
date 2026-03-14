@@ -1,10 +1,10 @@
 ﻿# Workshop Setup
 
 ## TLDR
-Ultimately, what you need is a Linux machine with a Bluetooth 4.0 module/dongle and `gatttool` installed (via bluez tools). Each attendee will be supplied with a Bluetooth device which they will connect to via their Linux machine.  These devices will take attendees though a series of exercises.  For attendees new to Bluetooth, they will be supplied with exercises for beginners.  For attendees experienced with Bluetooth, they will be supplied with exercises which are much more challenging =)
+Ultimately, what you need is a Linux machine with a Bluetooth 4.0 module/dongle and [gratttool](https://github.com/hackgnar/gratttool) installed (a modern Rust replacement for the deprecated gatttool). Each attendee will be supplied with a Bluetooth device which they will connect to via their Linux machine.  These devices will take attendees though a series of exercises.  For attendees new to Bluetooth, they will be supplied with exercises for beginners.  For attendees experienced with Bluetooth, they will be supplied with exercises which are much more challenging =)
 
 ## Testing your Setup
-As mentioned above, you can do almost all exercises for this workshop with the standard `gatttool` application. If you can run the following without error, then you are good to go.
+As mentioned above, you can do almost all exercises for this workshop with `gratttool` (or the legacy `gatttool`). If you can run the following without error, then you are good to go.
 
 First make sure your main Bluetooth interface is up.
 ```
@@ -19,7 +19,7 @@ hcitool lescan
 
 Try connecting to a few of the mac addresses from the output of the above command with the following command.  Make sure to replace the sample mac address 11:22:33:44:55:66 with one from your results from above.  Also note, not all devices are connectable.  However, if you get at least one to work then your setup is ready to roll.
 ```
-gatttool -b 11:22:33:44:55:66 --characteristics
+gratttool -b 11:22:33:44:55:66 --characteristics
 ```
 
 If you can do all of the above, you are ready to go for the workshop.  If you want to go above and beyond with your setup, check out the "Optional Tool Setup" section at the bottom of this document.
@@ -87,18 +87,14 @@ The workshop can probably be done with some existing tools or scripting code lib
 The workshop can be done with various code libraries in OSX.  Keep in mind it will be a lot more challenging and you likely wont get much assistance in the workshop if you get stuck.
 
 ## Optional Tool Setup
-You don't need any of the following tools to complete the workshop.  Many of them will make exercises easier (Bleah & Bettercap)  and some will just provide you with experience for more advanced Bluetooth interaction (Ubertooth & NRF Sniffer).
+You don't need any of the following tools to complete the workshop.  Many of them will make exercises easier (Bettercap)  and some will just provide you with experience for more advanced Bluetooth interaction (Ubertooth & NRF Sniffer).
 
-### Bleah
-The original project is now depricated, but my fork of it can be found here:
-https://github.com/hackgnar/bleah
-
-### Ghetto Gatttool Enumeration Script
-Running the following gatttool/bash script will get you output much like Bleah.  Its nice in case you have issues installing Bleah.
-https://gist.github.com/hackgnar/c9fd9bbf5a96fdd0d43f9f3a8c4e7aeb
+### gratttool
+A modern Rust reimplementation of the deprecated BlueZ gatttool.  It provides character-for-character compatible output plus enhanced features like `--scan`, `--enumerate`, `-A` for ASCII output, and `-S` for string writes.
+https://github.com/hackgnar/gratttool
 
 ### Bettercap
-The Bettercap project has some bluetooth support.  Much like Bleah, its useful for visualizing GATT characteristics.
+The Bettercap project has some bluetooth support.  Its useful for visualizing GATT characteristics.
 https://www.bettercap.org/
 
 ### Wireshark/Tshark
