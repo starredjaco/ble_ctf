@@ -1,10 +1,10 @@
 ﻿# Workshop Setup
 
 ## TLDR
-Ultimately, what you need is a Linux machine with a Bluetooth 4.0 module/dongle and [gratttool](https://github.com/hackgnar/gratttool) installed (a modern Rust replacement for the deprecated gatttool). Each attendee will be supplied with a Bluetooth device which they will connect to via their Linux machine.  These devices will take attendees though a series of exercises.  For attendees new to Bluetooth, they will be supplied with exercises for beginners.  For attendees experienced with Bluetooth, they will be supplied with exercises which are much more challenging =)
+Ultimately, what you need is a Linux machine with a Bluetooth 4.0 module/dongle and gatttool (from bluez-tools) installed. Each attendee will be supplied with a Bluetooth device which they will connect to via their Linux machine.  These devices will take attendees though a series of exercises.  For attendees new to Bluetooth, they will be supplied with exercises for beginners.  For attendees experienced with Bluetooth, they will be supplied with exercises which are much more challenging =)
 
 ## Testing your Setup
-As mentioned above, you can do almost all exercises for this workshop with `gratttool` (or the legacy `gatttool`). If you can run the following without error, then you are good to go.
+As mentioned above, you can do almost all exercises for this workshop with `gatttool`. If you can run the following without error, then you are good to go.
 
 First make sure your main Bluetooth interface is up.
 ```
@@ -19,7 +19,7 @@ hcitool lescan
 
 Try connecting to a few of the mac addresses from the output of the above command with the following command.  Make sure to replace the sample mac address 11:22:33:44:55:66 with one from your results from above.  Also note, not all devices are connectable.  However, if you get at least one to work then your setup is ready to roll.
 ```
-gratttool -b 11:22:33:44:55:66 --characteristics
+gatttool -b 11:22:33:44:55:66 --characteristics
 ```
 
 If you can do all of the above, you are ready to go for the workshop.  If you want to go above and beyond with your setup, check out the "Optional Tool Setup" section at the bottom of this document.
@@ -90,7 +90,7 @@ The workshop can be done with various code libraries in OSX.  Keep in mind it wi
 You don't need any of the following tools to complete the workshop.  Many of them will make exercises easier (Bettercap)  and some will just provide you with experience for more advanced Bluetooth interaction (Ubertooth & NRF Sniffer).
 
 ### gratttool
-A modern Rust reimplementation of the deprecated BlueZ gatttool.  It provides character-for-character compatible output plus enhanced features like `--scan`, `--enumerate`, `-A` for ASCII output, and `-S` for string writes.
+A modern Rust reimplementation of the deprecated BlueZ gatttool.  It provides character-for-character compatible output plus enhanced features like `--scan`, `--enumerate`, `-A` for ASCII output, and `-S` for string writes.  All gatttool commands in this CTF are also compatible with gratttool.
 https://github.com/hackgnar/gratttool
 
 ### Bettercap
